@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "556369677316",
+    "project_id": "wien-446ca",
+    "storage_bucket": "wien-446ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556369677316:android:ff3f9148d79fabb645b951",
+        "android_client_info": {
+          "package_name": "cloud.peas.peas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "556369677316-jftuedejd4vbge8t1n66ctet3cf0jsm4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzEZ2zaHY3yK8gpe4YMy5zKtEdx4KZurY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "556369677316-jftuedejd4vbge8t1n66ctet3cf0jsm4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "556369677316-8o7slfqapiqbhrrva8tqs5lme7nvs4ia.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "cloud.peas.peas"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556369677316:android:798904ce8a18d95845b951",
+        "android_client_info": {
+          "package_name": "com.example.peas_cloud"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "556369677316-jftuedejd4vbge8t1n66ctet3cf0jsm4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzEZ2zaHY3yK8gpe4YMy5zKtEdx4KZurY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "556369677316-jftuedejd4vbge8t1n66ctet3cf0jsm4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "556369677316-8o7slfqapiqbhrrva8tqs5lme7nvs4ia.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "cloud.peas.peas"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
