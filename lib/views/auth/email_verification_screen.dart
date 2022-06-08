@@ -8,15 +8,18 @@ import '../../config/colors.dart';
 import '../main/main_screen.dart';
 
 class EmailVerificationScreen extends StatefulWidget {
+
   final User user;
 
   EmailVerificationScreen({ required this.user});
 
   @override
   State<EmailVerificationScreen> createState() => _EmailVerificationScreenState();
+
 }
 
 class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
+
   Timer? timer;
 
   @override
@@ -30,6 +33,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
     });
   }
 
+
   Future<void> _checkEmailVerified() async {
     await widget.user.reload();
     if (widget.user.emailVerified) {
@@ -39,8 +43,10 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
               builder: (context) => MainScreen()),
               (Route<dynamic> route) => false);
     }
+
     print(widget.user.email);
     print(widget.user.emailVerified);
+
   }
 
   @override
@@ -55,11 +61,13 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
         appBar: AppBar(
             backgroundColor: kColorPrimary,
             //  centerTitle: true,
-            title: Text(  'Confirmation Screen' , style: TextStyle(color: kWhite),)
+            title: Text('Confirmation Screen' , style: TextStyle(color: kWhite),)
         ),
-        body:  Column(
+        body: Column(
           children: [
+
             SizedBox(height: 5,),
+
             Padding(
               padding: const EdgeInsets.only(top: 20.0),
               child: CustomSurffixIcon(
@@ -72,14 +80,15 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
               padding: const EdgeInsets.only(top: 0.0),
               child: DefaultHeaderTitle(title: 'Check your Email'),
             ),
+
             Padding(
               padding: const EdgeInsets.only(top: 0, left: 20, right: 20, bottom: 40),
               child: RichText(
                 textAlign: TextAlign.center,
-                text: TextSpan(children: [
+                text: TextSpan(
+                    children: [
                   TextSpan(
-                      text:
-                      'Please check your inbox for a registration confirmation.',
+                      text: 'Please check your inbox for a registration confirmation.',
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
@@ -87,12 +96,14 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                 ]),
               ),
             ),
+
             Image.asset(
               'assets/confirm.png',
               height: 120,
             ),
 
             SizedBox(height: 20,),
+
             DefaultButton(press: _checkEmailVerified, title: "Retry"),
 
           ],

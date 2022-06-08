@@ -57,7 +57,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
             backgroundColor: kColorPrimary,
             //  centerTitle: true,
-            title: Text(  'Re-set Password' , style: TextStyle(color: kWhite),)
+            title: Text('Re-set Password' , style: TextStyle(color: kWhite),)
         ),
       body: isSent? Column(
         children: [
@@ -74,8 +74,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             child: DefaultHeaderTitle(title: 'Check your Email'),
           ),
           Padding(
-            padding:
-                const EdgeInsets.only(top: 0, left: 20, right: 20, bottom: 40),
+            padding: const EdgeInsets.only(top: 0, left: 20, right: 20, bottom: 40),
             child: RichText(
               textAlign: TextAlign.center,
               text: TextSpan(children: [
@@ -147,7 +146,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             textColor: Colors.white,
                             fontSize: 16.0
                         );
-                        print("ERRORRRRRRRR=> $error");
                       });
                     }
                   }),
@@ -189,8 +187,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           fillColor: Colors.grey[100],
           filled: true,
           hintStyle: TextStyle(
-              color:
-              Colors.grey[400]),
+              color: Colors.grey[400]),
           errorStyle: TextStyle(color: Colors.pink),
           //  contentPadding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 20),
           border: OutlineInputBorder(

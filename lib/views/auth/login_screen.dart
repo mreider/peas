@@ -62,7 +62,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(height: 8.5),
-                      Center(
+                      Padding(
+                        padding: const EdgeInsets.only(left: 25.0 , right: 25.0),
                         child: Form(
                             key: _formKey,
                           child: Column(
@@ -159,9 +160,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ],
                                 ),
                               ),
+
                               SizedBox(
                                 height: 10,
                               ),
+
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -233,38 +236,89 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
   Widget buildPasswordFormField() {
-    return Padding(
-      padding: EdgeInsets.only(left: 30, right: 30),
-      child: TextFormField(
-        controller: passwordController,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        obscureText: true,
-        onSaved: (newValue) => password = newValue,
-        onChanged: (value) {
-          if (value.isNotEmpty) {
-            removeError(error: kPassNullError);
-          } else if (value.length >= 8) {
-            removeError(error: kShortPassError);
-          }
-          return null;
-        },
-        validator: (value) {
-          if (value!.isEmpty) {
-            addError(error: kPassNullError);
-            return kPassNullError;
-          } else if (value.length < 8) {
-            addError(error: kShortPassError);
-            return kShortPassError;
-          }
-          return null;
-        },
-        decoration: new InputDecoration(
-          fillColor: Colors.grey[100],
-          filled: true,
-          hintStyle: TextStyle(
-              color:
-              Colors.grey[400]),
-          errorStyle: TextStyle(color: Colors.pink),
+    return TextFormField(
+      controller: passwordController,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      obscureText: true,
+      onSaved: (newValue) => password = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kPassNullError);
+        } else if (value.length >= 5) {
+          removeError(error: kShortPassError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kPassNullError);
+          return kPassNullError;
+        } else if (value.length < 5) {
+          addError(error: kShortPassError);
+          return kShortPassError;
+        }
+        return null;
+      },
+      decoration: new InputDecoration(
+        fillColor: Colors.grey[100],
+        filled: true,
+        hintStyle: TextStyle(
+            color:
+            Colors.grey[400]),
+        errorStyle: TextStyle(color: Colors.pink),
+        border: OutlineInputBorder(
+            borderRadius:
+            BorderRadius
+                .circular(12),
+            borderSide: BorderSide(
+                color: Colors.grey,
+                width: 1)),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
+        ),
+        hintText: 'Your Password', //add color
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+      ),
+    );
+  }
+
+  Widget buildEmailFormField() {
+    return TextFormField(
+      controller: emailController,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      keyboardType: TextInputType.emailAddress,
+      onSaved: (newValue) => email = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kEmailNullError);
+        } else if (emailValidatorRegExp.hasMatch(value)) {
+          removeError(error: kInvalidEmailError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kEmailNullError);
+          return kEmailNullError;
+        } else if (!emailValidatorRegExp.hasMatch(value)) {
+          addError(error: kInvalidEmailError);
+          return kInvalidEmailError;
+        }
+        return null;
+      },
+      decoration: new InputDecoration(
+        fillColor: Colors.grey[100],
+        filled: true,
+        hintStyle: TextStyle(
+            color:
+            Colors.grey[400]),
+        errorStyle: TextStyle(color: Colors.pink),
+      //  contentPadding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 20),
           border: OutlineInputBorder(
               borderRadius:
               BorderRadius
@@ -272,72 +326,15 @@ class _LoginScreenState extends State<LoginScreen> {
               borderSide: BorderSide(
                   color: Colors.grey,
                   width: 1)),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12)),
-            borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12)),
-            borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
-          ),
-          hintText: 'Your Password', //add color
-          floatingLabelBehavior: FloatingLabelBehavior.always,
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
         ),
-      ),
-    );
-  }
-
-  Widget buildEmailFormField() {
-    return Padding(
-      padding: EdgeInsets.only(left: 30, right: 30),
-      child: TextFormField(
-        controller: emailController,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        keyboardType: TextInputType.emailAddress,
-        onSaved: (newValue) => email = newValue,
-        onChanged: (value) {
-          if (value.isNotEmpty) {
-            removeError(error: kEmailNullError);
-          } else if (emailValidatorRegExp.hasMatch(value)) {
-            removeError(error: kInvalidEmailError);
-          }
-          return null;
-        },
-        validator: (value) {
-          if (value!.isEmpty) {
-            addError(error: kEmailNullError);
-            return kEmailNullError;
-          } else if (!emailValidatorRegExp.hasMatch(value)) {
-            addError(error: kInvalidEmailError);
-            return kInvalidEmailError;
-          }
-          return null;
-        },
-        decoration: new InputDecoration(
-          fillColor: Colors.grey[100],
-          filled: true,
-          hintStyle: TextStyle(
-              color:
-              Colors.grey[400]),
-          errorStyle: TextStyle(color: Colors.pink),
-        //  contentPadding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 20),
-            border: OutlineInputBorder(
-                borderRadius:
-                BorderRadius
-                    .circular(12),
-                borderSide: BorderSide(
-                    color: Colors.grey,
-                    width: 1)),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12)),
-            borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12)),
-            borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
-          ),
-          hintText: 'yourmail@domain.com',
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
         ),
+        hintText: 'yourmail@domain.com',
       ),
     );
   }

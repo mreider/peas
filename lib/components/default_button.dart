@@ -16,7 +16,7 @@ class DefaultButton extends StatelessWidget {
       child: Container(
         width: double.infinity,
         child: Padding(
-          padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 25, bottom: 15),
+          padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 25, bottom: 15),
           // ignore: deprecated_member_use
           child: FlatButton(
             height: 50,

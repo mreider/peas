@@ -14,14 +14,11 @@ class CustomSvgIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.fromLTRB(
-        0, 20, 20, 20,
-        // getProportionateScreenWidth(20),
-        // getProportionateScreenWidth(20),
-        // getProportionateScreenWidth(20),
+        0, 5, 20, 20,
       ),
       child: SvgPicture.asset(
         svgIcon,
-        height: 18,
+        height: 35,
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -5,9 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:peas_cloud/views/auth/email_verification_screen.dart';
 import 'package:peas_cloud/views/auth/login_screen.dart';
 import '../../components/custom_surfix_icon.dart';
-import '../../components/custom_surfix_svg_icon.dart';
 import '../../components/default_button.dart';
-import '../../components/form_error.dart';
 import '../../config/colors.dart';
 import '../../config/constants.dart';
 import '../main/main_screen.dart';
@@ -34,6 +33,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool remember = false;
   final List<String> errors = [];
 
+
   void addError({String? error}) {
     if (!errors.contains(error))
      // setState(() {
@@ -47,6 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         errors.remove(error);
      // });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +143,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       buildPasswordFormField(),
                                      // title('Confirm Password'),
                                     //  buildConformPassFormField(),
-                                      SizedBox(height: 40),
+                                      SizedBox(height: 5),
                                       DefaultButton(
                                         title: "Register",
                                         press: () async {
@@ -151,7 +152,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             await showLoaderDialog(context, 'Please wait...');
                                             print('email- $email');
                                             print('password- $password');
-                                            String resp = await authController.signUpUser(email!, password! , name!);
+                                            String resp = await authController.signUpUser(email!, password! , name! , context);
+
+                                            print('resp_value - ${resp}');
                                             if (resp == 'success') {
                                               if(auth.currentUser!.emailVerified){
                                                 Navigator.of(context).pushAndRemoveUntil(
@@ -167,6 +170,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               }
 
                                             } else {
+                                              print('else');
                                               Navigator.pop(context);
                                                 showDialog(
                                                     context: context,
@@ -198,6 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                               ),
+
                               GestureDetector(
                                 onTap: () {
                                   Get.to(LoginScreen());
@@ -229,12 +234,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ],
                                 ),
                               ),
+
                               SizedBox(
                                 height: 10,
                               ),
 
                               GestureDetector(
+
                                 onTap: () async {
+
                                 },
                                 child: Container(
                                   height: 80,
@@ -344,7 +352,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        } else if (value.length >= 8) {
+        } else if (value.length >= 5) {
           removeError(error: kShortPassError);
         }
         return null;
@@ -353,7 +361,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         if (value!.isEmpty) {
           addError(error: kPassNullError);
           return kPassNullError;
-        } else if (value!.length < 8) {
+        } else if (value!.length < 5) {
           addError(error: kShortPassError);
           return kShortPassError;
         }
@@ -367,9 +375,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             Colors.grey[400]),
         errorStyle: TextStyle(color: Colors.pink),
         border: OutlineInputBorder(
-            borderRadius:
-            BorderRadius
-                .circular(12),
+            borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(
                 color: Colors.grey,
                 width: 1)),

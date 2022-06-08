@@ -14,7 +14,7 @@ ThemeData lightTheme = ThemeData(
   bottomAppBarColor: Color(0xff6D42CE),
   cardColor: Color(0xaaF5E0C3),
   appBarTheme: AppBarTheme(
-    iconTheme: IconThemeData(color: Colors.white),
+    //iconTheme: IconThemeData(color: Colors.white),
       actionsIconTheme: IconThemeData(color: Colors.black),
       backgroundColor: Colors.white,
       elevation: 0.0,
