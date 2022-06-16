@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.peas_cloud">
+    package="com.example.himanshi_update">
    <application
-        android:label="peas_cloud"
+        android:label="himanshi_update"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -30,12 +30,5 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-
     </application>
-    <queries>
-        <intent>
-            <action android:name="android.intent.action.SENDTO" />
-            <data android:scheme="mailto" />
-        </intent>
-    </queries>
 </manifest>

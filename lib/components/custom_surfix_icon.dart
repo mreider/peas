@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:peas_cloud/config/colors.dart';
+
+import '../config/colors.dart';
 
 class CustomSurffixIcon extends StatelessWidget {
   const CustomSurffixIcon({
@@ -16,16 +17,15 @@ class CustomSurffixIcon extends StatelessWidget {
       width: 120,
       margin: EdgeInsets.all(20.0),
       decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: kColorPrimary,
-        border: Border.all(color: kColorPrimary , width: 2),
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage(svgIcon , ),
-
-        )
-      ),
-
+          shape: BoxShape.circle,
+          color: kColorPrimary,
+          border: Border.all(color: kColorPrimary, width: 2),
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage(
+              svgIcon,
+            ),
+          )),
     );
   }
 }

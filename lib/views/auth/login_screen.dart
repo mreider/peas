@@ -1,10 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:peas_cloud/views/auth/register_screen.dart';
-import 'package:peas_cloud/views/auth/reset_password_screen.dart';
 
 import '../../components/custom_surfix_icon.dart';
 import '../../components/default_button.dart';
@@ -12,6 +8,8 @@ import '../../config/colors.dart';
 import '../../config/constants.dart';
 import '../main/main_screen.dart';
 import 'email_verification_screen.dart';
+import 'register_screen.dart';
+import 'reset_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -21,7 +19,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -63,9 +60,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       SizedBox(height: 8.5),
                       Padding(
-                        padding: const EdgeInsets.only(left: 25.0 , right: 25.0),
+                        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
                         child: Form(
-                            key: _formKey,
+                          key: _formKey,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -88,20 +85,31 @@ class _LoginScreenState extends State<LoginScreen> {
                                   press: () async {
                                     if (_formKey.currentState!.validate()) {
                                       _formKey.currentState!.save();
-                                      await showLoaderDialog(context, 'Please wait...');
-                                      String resp = await authController.signInUser(email!, password!);
+                                      await showLoaderDialog(
+                                          context, 'Please wait...');
+                                      String resp = await authController
+                                          .signInUser(email!, password!);
                                       if (resp == 'success') {
-                                        if(auth.currentUser!.emailVerified){
-                                          Navigator.of(context).pushAndRemoveUntil(
-                                              MaterialPageRoute(
-                                                  builder: (context) => MainScreen()),
-                                                  (Route<dynamic> route) => false);
-                                        }else{
-
-                                          Navigator.of(context).pushAndRemoveUntil(
-                                              MaterialPageRoute(
-                                                  builder: (context) => EmailVerificationScreen(user: auth!.currentUser!,)),
-                                                  (Route<dynamic> route) => false);
+                                        if (auth.currentUser!.emailVerified) {
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder:
+                                                          (context) =>
+                                                              MainScreen()),
+                                                  (Route<dynamic> route) =>
+                                                      false);
+                                        } else {
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          EmailVerificationScreen(
+                                                            user: auth
+                                                                .currentUser!,
+                                                          )),
+                                                  (Route<dynamic> route) =>
+                                                      false);
                                         }
                                       } else {
                                         Navigator.pop(context);
@@ -119,14 +127,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     },
                                                     child: Text(
                                                       'OK',
-                                                      style: TextStyle(color: Colors.orange[800]),
+                                                      style: TextStyle(
+                                                          color: Colors
+                                                              .orange[800]),
                                                     ),
                                                   )
                                                 ],
                                               );
                                             });
                                       }
-
                                     }
                                   }),
                               GestureDetector(
@@ -160,17 +169,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ],
                                 ),
                               ),
-
                               SizedBox(
                                 height: 10,
                               ),
-
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   GestureDetector(
-                                    onTap: () async{
-                                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
+                                    onTap: () async {
+                                      Navigator.push(context, MaterialPageRoute(
+                                          builder: (BuildContext context) {
                                         return ResetPasswordScreen();
                                       }));
                                     },
@@ -183,7 +191,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     ),
                                   ),
-
                                 ],
                               ),
                             ],
@@ -204,7 +211,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       textAlign: TextAlign.center,
                       text: TextSpan(
                         text:
-                        'By continuing, you indicate that you have read \nand agree to our ',
+                            'By continuing, you indicate that you have read \nand agree to our ',
                         style: GoogleFonts.inter(
                           //decoration: TextDecoration.underline,
                           color: kDarkBlack,
@@ -233,8 +240,6 @@ class _LoginScreenState extends State<LoginScreen> {
         ));
   }
 
-
-
   Widget buildPasswordFormField() {
     return TextFormField(
       controller: passwordController,
@@ -262,17 +267,11 @@ class _LoginScreenState extends State<LoginScreen> {
       decoration: new InputDecoration(
         fillColor: Colors.grey[100],
         filled: true,
-        hintStyle: TextStyle(
-            color:
-            Colors.grey[400]),
+        hintStyle: TextStyle(color: Colors.grey[400]),
         errorStyle: TextStyle(color: Colors.pink),
         border: OutlineInputBorder(
-            borderRadius:
-            BorderRadius
-                .circular(12),
-            borderSide: BorderSide(
-                color: Colors.grey,
-                width: 1)),
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Colors.grey, width: 1)),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(12)),
           borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
@@ -311,26 +310,20 @@ class _LoginScreenState extends State<LoginScreen> {
         }
         return null;
       },
-      decoration: new InputDecoration(
+      decoration: InputDecoration(
         fillColor: Colors.grey[100],
         filled: true,
-        hintStyle: TextStyle(
-            color:
-            Colors.grey[400]),
-        errorStyle: TextStyle(color: Colors.pink),
-      //  contentPadding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 20),
-          border: OutlineInputBorder(
-              borderRadius:
-              BorderRadius
-                  .circular(12),
-              borderSide: BorderSide(
-                  color: Colors.grey,
-                  width: 1)),
-        focusedBorder: OutlineInputBorder(
+        hintStyle: TextStyle(color: Colors.grey[400]),
+        errorStyle: const TextStyle(color: Colors.pink),
+        //  contentPadding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 20),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(color: Colors.grey, width: 1)),
+        focusedBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(12)),
           borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
         ),
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(12)),
           borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
         ),

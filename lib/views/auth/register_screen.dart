@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:peas_cloud/views/auth/email_verification_screen.dart';
-import 'package:peas_cloud/views/auth/login_screen.dart';
 import '../../components/custom_surfix_icon.dart';
 import '../../components/default_button.dart';
 import '../../config/colors.dart';
 import '../../config/constants.dart';
 import '../main/main_screen.dart';
+import 'email_verification_screen.dart';
+import 'login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -19,7 +19,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
@@ -33,21 +32,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool remember = false;
   final List<String> errors = [];
 
-
   void addError({String? error}) {
     if (!errors.contains(error))
-     // setState(() {
-        errors.add(error!);
-     // });
+      // setState(() {
+      errors.add(error!);
+    // });
   }
 
   void removeError({String? error}) {
     if (errors.contains(error))
-     // setState(() {
-        errors.remove(error);
-     // });
+      // setState(() {
+      errors.remove(error);
+    // });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -73,8 +70,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               Padding(
                                 padding: const EdgeInsets.only(top: 50.0),
                                 child: CustomSurffixIcon(
-                                  svgIcon:
-                                  'assets/icons/logo.png',
+                                  svgIcon: 'assets/icons/logo.png',
                                   size: 110,
                                 ),
                               ),
@@ -84,7 +80,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 child: Form(
                                   key: _formKey,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       SizedBox(
@@ -93,7 +90,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       title('Full Name'),
                                       TextFormField(
                                         controller: nameController,
-                                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                                        autovalidateMode:
+                                            AutovalidateMode.onUserInteraction,
                                         keyboardType: TextInputType.name,
                                         onSaved: (newValue) => name = newValue,
                                         onChanged: (value) {
@@ -113,24 +111,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           fillColor: Colors.grey[100],
                                           filled: true,
                                           hintStyle: TextStyle(
-                                              color:
-                                              Colors.grey[400]),
-                                          errorStyle: TextStyle(color: Colors.pink),
+                                              color: Colors.grey[400]),
+                                          errorStyle:
+                                              TextStyle(color: Colors.pink),
                                           //  contentPadding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 20),
                                           border: OutlineInputBorder(
                                               borderRadius:
-                                              BorderRadius
-                                                  .circular(12),
+                                                  BorderRadius.circular(12),
                                               borderSide: BorderSide(
                                                   color: Colors.grey,
                                                   width: 1)),
                                           focusedBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.all(Radius.circular(12)),
-                                            borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(12)),
+                                            borderSide: BorderSide(
+                                                color: Colors.blueGrey,
+                                                width: 1.0),
                                           ),
                                           enabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.all(Radius.circular(12)),
-                                            borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(12)),
+                                            borderSide: BorderSide(
+                                                color: Colors.blueGrey,
+                                                width: 1.0),
                                           ),
                                           hintText: 'Your Name',
 
@@ -141,57 +144,79 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       buildEmailFormField(),
                                       title('Password'),
                                       buildPasswordFormField(),
-                                     // title('Confirm Password'),
-                                    //  buildConformPassFormField(),
+                                      // title('Confirm Password'),
+                                      //  buildConformPassFormField(),
                                       SizedBox(height: 5),
                                       DefaultButton(
                                         title: "Register",
                                         press: () async {
-                                          if (_formKey.currentState!.validate()) {
+                                          if (_formKey.currentState!
+                                              .validate()) {
                                             _formKey.currentState!.save();
-                                            await showLoaderDialog(context, 'Please wait...');
+                                            await showLoaderDialog(
+                                                context, 'Please wait...');
                                             print('email- $email');
                                             print('password- $password');
-                                            String resp = await authController.signUpUser(email!, password! , name! , context);
+                                            String resp =
+                                                await authController.signUpUser(
+                                                    email!,
+                                                    password!,
+                                                    name!,
+                                                    context);
 
                                             print('resp_value - ${resp}');
                                             if (resp == 'success') {
-                                              if(auth.currentUser!.emailVerified){
-                                                Navigator.of(context).pushAndRemoveUntil(
-                                                    MaterialPageRoute(
-                                                        builder: (context) => MainScreen()),
-                                                        (Route<dynamic> route) => false);
-                                              }else{
-
-                                                Navigator.of(context).pushAndRemoveUntil(
-                                                    MaterialPageRoute(
-                                                        builder: (context) => EmailVerificationScreen(user: auth!.currentUser!,)),
-                                                        (Route<dynamic> route) => false);
+                                              if (auth
+                                                  .currentUser!.emailVerified) {
+                                                Navigator.of(context)
+                                                    .pushAndRemoveUntil(
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                MainScreen()),
+                                                        (Route<dynamic>
+                                                                route) =>
+                                                            false);
+                                              } else {
+                                                Navigator.of(context)
+                                                    .pushAndRemoveUntil(
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                EmailVerificationScreen(
+                                                                  user: auth
+                                                                      .currentUser!,
+                                                                )),
+                                                        (Route<dynamic>
+                                                                route) =>
+                                                            false);
                                               }
-
                                             } else {
                                               print('else');
                                               Navigator.pop(context);
-                                                showDialog(
-                                                    context: context,
-                                                    barrierDismissible: true,
-                                                    builder: (BuildContext context) {
-                                                      return AlertDialog(
-                                                        title: Text(resp),
-                                                        actions: [
-                                                          // ignore: deprecated_member_use
-                                                          FlatButton(
-                                                            onPressed: () {
-                                                              Navigator.pop(context);
-                                                            },
-                                                            child: Text(
-                                                              'OK',
-                                                              style: TextStyle(color: Colors.orange[800]),
-                                                            ),
-                                                          )
-                                                        ],
-                                                      );
-                                                    });
+                                              showDialog(
+                                                  context: context,
+                                                  barrierDismissible: true,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDialog(
+                                                      title: Text(resp),
+                                                      actions: [
+                                                        // ignore: deprecated_member_use
+                                                        FlatButton(
+                                                          onPressed: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: Text(
+                                                            'OK',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                        .orange[
+                                                                    800]),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    );
+                                                  });
                                             }
                                             // if all are valid then go to success screen
                                             //  Navigator.pushNamed(context, CompleteProfileScreen.routeName);
@@ -202,7 +227,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                               ),
-
                               GestureDetector(
                                 onTap: () {
                                   Get.to(LoginScreen());
@@ -234,16 +258,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ],
                                 ),
                               ),
-
                               SizedBox(
                                 height: 10,
                               ),
-
                               GestureDetector(
-
-                                onTap: () async {
-
-                                },
+                                onTap: () async {},
                                 child: Container(
                                   height: 80,
                                   width: MediaQuery.of(context).size.width,
@@ -253,7 +272,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       RichText(
                                         textAlign: TextAlign.center,
                                         text: TextSpan(
-                                          text: 'By continuing, you indicate that you have read \nand agree to our ',
+                                          text:
+                                              'By continuing, you indicate that you have read \nand agree to our ',
                                           style: GoogleFonts.inter(
                                             //decoration: TextDecoration.underline,
                                             color: kDarkBlack,
@@ -265,7 +285,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               text: 'Terms and Conditions. ',
                                               style: GoogleFonts.inter(
                                                 decoration:
-                                                TextDecoration.underline,
+                                                    TextDecoration.underline,
                                                 color: kColorPrimary,
                                                 fontSize: 14.0,
                                                 fontWeight: FontWeight.w400,
@@ -291,7 +311,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         ));
   }
-
 
   TextFormField buildConformPassFormField() {
     return TextFormField(
@@ -319,17 +338,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
       decoration: new InputDecoration(
         fillColor: Colors.grey[100],
         filled: true,
-        hintStyle: TextStyle(
-            color:
-            Colors.grey[400]),
+        hintStyle: TextStyle(color: Colors.grey[400]),
         errorStyle: TextStyle(color: Colors.pink),
         border: OutlineInputBorder(
-            borderRadius:
-            BorderRadius
-                .circular(12),
-            borderSide: BorderSide(
-                color: Colors.grey,
-                width: 1)),
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Colors.grey, width: 1)),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(12)),
           borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
@@ -361,24 +374,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
         if (value!.isEmpty) {
           addError(error: kPassNullError);
           return kPassNullError;
-        } else if (value!.length < 5) {
+        } else if (value.length < 5) {
           addError(error: kShortPassError);
           return kShortPassError;
         }
         return null;
       },
-      decoration: new InputDecoration(
+      decoration: InputDecoration(
         fillColor: Colors.grey[100],
         filled: true,
-        hintStyle: TextStyle(
-            color:
-            Colors.grey[400]),
+        hintStyle: TextStyle(color: Colors.grey[400]),
         errorStyle: TextStyle(color: Colors.pink),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
-                color: Colors.grey,
-                width: 1)),
+            borderSide: BorderSide(color: Colors.grey, width: 1)),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(12)),
           borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
@@ -420,17 +429,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
       decoration: new InputDecoration(
         fillColor: Colors.grey[100],
         filled: true,
-        hintStyle: TextStyle(
-            color:
-            Colors.grey[400]),
+        hintStyle: TextStyle(color: Colors.grey[400]),
         errorStyle: TextStyle(color: Colors.pink),
         border: OutlineInputBorder(
-            borderRadius:
-            BorderRadius
-                .circular(12),
-            borderSide: BorderSide(
-                color: Colors.grey,
-                width: 1)),
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Colors.grey, width: 1)),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(12)),
           borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
